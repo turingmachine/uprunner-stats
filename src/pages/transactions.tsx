@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import { TransactionsTable } from '../components/TransactionsTable'
 import { useTransactions } from '../hooks/useTransactions'
 import { Text } from '@nextui-org/react'
+import Head from 'next/head'
 
 const Transactions: NextPage = () => {
   const transactions = useTransactions([
@@ -18,6 +19,9 @@ const Transactions: NextPage = () => {
     .toFixed(2)
   return (
     <>
+      <Head>
+        <title>Transactions - UpRunner Stats</title>
+      </Head>
       <Text>Total: POKT {totalPOKT}</Text>
       <Text>Total: CHF {totalCHF}</Text>
       <TransactionsTable transactions={transactions} />

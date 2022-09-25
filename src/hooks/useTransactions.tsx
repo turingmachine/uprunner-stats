@@ -5,7 +5,7 @@ import { usePrices, Prices } from './usePrices'
 type ReponseData = {
   data: { month: { transactions: [] } }[]
 }
-export type Transactions = {
+export type Transaction = {
   hash: string
   time: string
   chain: { name: string }
@@ -13,7 +13,8 @@ export type Transactions = {
   pokt_per_relay: number
   amount_pokt: number
   amount_chf: number
-}[]
+}
+export type Transactions = Transaction[]
 
 export const useTransactions = (addresses: string[]): Transactions => {
   const prices = usePrices()
@@ -61,10 +62,23 @@ const addPriceToTransactions = (
     const price = prices[format(date, 'dd-MM-yyyy')] ?? 0
     return {
       ...transaction,
+      hash: transaction.hash.slice(0, 10),
       time: format(date, 'yyyy-MM-dd HH:mm'),
       amount_pokt: transaction.pokt_per_relay * transaction.num_relays,
       amount_chf: transaction.pokt_per_relay * transaction.num_relays * price,
       price_pokt_per_chf: price,
+    }
+  })
+}
+
+export const prepareTransactionChartData = (
+  transactions: Transactions,
+  property: 'num_relays' | 'amount_chf'
+) => {
+  return transactions.map((transaction) => {
+    return {
+      x: transaction.time,
+      y: transaction[property],
     }
   })
 }
