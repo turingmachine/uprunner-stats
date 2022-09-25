@@ -15,25 +15,37 @@ export type Transactions = {
   amount_chf: number
 }[]
 
-export const useTransactions = (address: string): Transactions => {
+export const useTransactions = (addresses: string[]): Transactions => {
   const prices = usePrices()
-  const [responseData, setResponseData] = useState<ReponseData | null>(null)
+  const [transactions, setTransactions] = useState<Transactions | null>(null)
   useEffect(() => {
-    fetch(getTransactionsUrl(address))
-      .then((resp) => resp.json())
-      .then((data) => setResponseData(data))
-  }, [address])
+    fetchTransactions(addresses).then((transactions) =>
+      setTransactions(transactions)
+    )
+  }, [])
 
-  if (!responseData) {
+  if (!transactions) {
     return []
   }
 
-  const transactions: Transactions = responseData.data
-    .slice()
-    .reverse()
-    .flatMap((month: any) => month.transactions)
+  return addPriceToTransactions(transactions, prices).sort((a, b) =>
+    a.time.localeCompare(b.time)
+  )
+}
 
-  return addPriceToTransactions(transactions, prices)
+const fetchTransactions = async (
+  addresses: string[]
+): Promise<Transactions> => {
+  const transactionsPerAddress = await Promise.all(
+    addresses.map((addresses) =>
+      fetch(getTransactionsUrl(addresses))
+        .then((response) => response.json())
+        .then((json) => {
+          return json.data.flatMap((month: any) => month.transactions)
+        })
+    )
+  )
+  return transactionsPerAddress.flat()
 }
 
 const getTransactionsUrl = (address: string) => {
@@ -49,7 +61,7 @@ const addPriceToTransactions = (
     const price = prices[format(date, 'dd-MM-yyyy')] ?? 0
     return {
       ...transaction,
-      time: format(date, 'dd-MM-yyy HH:mm'),
+      time: format(date, 'yyyy-MM-dd HH:mm'),
       amount_pokt: transaction.pokt_per_relay * transaction.num_relays,
       amount_chf: transaction.pokt_per_relay * transaction.num_relays * price,
       price_pokt_per_chf: price,

@@ -15,12 +15,9 @@ export const Navigation = () => {
         <NavbarLink href="/transactions">Transactions</NavbarLink>
       </Navbar.Content>
       <Navbar.Content>
-        <Navbar.Link color="inherit" href="#">
-          Login
-        </Navbar.Link>
         <Navbar.Item>
           <Button auto flat href="#">
-            Sign Up
+            Addresses
           </Button>
         </Navbar.Item>
       </Navbar.Content>

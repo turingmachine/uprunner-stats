@@ -12,8 +12,8 @@ export const TransactionsTable = ({ transactions }: TransactionsTableProps) => {
         <Table.Column>Date</Table.Column>
         <Table.Column>Chain</Table.Column>
         <Table.Column>Relays</Table.Column>
-        <Table.Column>Amount POKT</Table.Column>
-        <Table.Column>Amount CHF</Table.Column>
+        <Table.Column>Revenue POKT</Table.Column>
+        <Table.Column>Revenue CHF</Table.Column>
         <Table.Column>POKT per Relay</Table.Column>
         <Table.Column>POKT Price in CHF</Table.Column>
       </Table.Header>
