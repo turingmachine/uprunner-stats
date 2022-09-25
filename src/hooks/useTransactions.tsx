@@ -28,11 +28,10 @@ export const useTransactions = (address: string): Transactions => {
     return []
   }
 
-  const reversed = responseData.data.reverse()
-
-  const transactions: Transactions = reversed.flatMap(
-    (month: any) => month.transactions
-  )
+  const transactions: Transactions = responseData.data
+    .slice()
+    .reverse()
+    .flatMap((month: any) => month.transactions)
 
   return addPriceToTransactions(transactions, prices)
 }
@@ -46,12 +45,14 @@ const addPriceToTransactions = (
   prices: Prices
 ): Transactions => {
   return transactions.map((transaction) => {
-    const date = format(parseISO(transaction.time), 'dd-MM-yyyy')
+    const date = parseISO(transaction.time)
+    const price = prices[format(date, 'dd-MM-yyyy')] ?? 0
     return {
       ...transaction,
+      time: format(date, 'dd-MM-yyy HH:mm'),
       amount_pokt: transaction.pokt_per_relay * transaction.num_relays,
-      amount_chf:
-        transaction.pokt_per_relay * transaction.num_relays * prices[date],
+      amount_chf: transaction.pokt_per_relay * transaction.num_relays * price,
+      price_pokt_per_chf: price,
     }
   })
 }

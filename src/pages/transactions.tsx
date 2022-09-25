@@ -3,18 +3,16 @@ import { TransactionsTable } from '../components/TransactionsTable'
 import { useTransactions } from '../hooks/useTransactions'
 import { Text } from '@nextui-org/react'
 
-const Reports: NextPage = () => {
+const Transactions: NextPage = () => {
   const transactions = useTransactions(
     '700af42a002af6f957d8025e9b80820589d84d36'
   )
-  const totalPOKT = transactions.reduce(
-    (total, trx) => trx.amount_pokt + total,
-    0
-  )
-  const totalCHF = transactions.reduce(
-    (total, trx) => trx.amount_chf ?? 0 + total,
-    0
-  )
+  const totalPOKT = transactions
+    .reduce((total, trx) => trx.amount_pokt + total, 0)
+    .toFixed(2)
+  const totalCHF = transactions
+    .reduce((total, trx) => trx.amount_chf + total, 0)
+    .toFixed(2)
   return (
     <>
       <Text>Total: POKT {totalPOKT}</Text>
@@ -24,4 +22,4 @@ const Reports: NextPage = () => {
   )
 }
 
-export default Reports
+export default Transactions

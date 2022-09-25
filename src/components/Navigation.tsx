@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Navbar, Text, Button, Link } from '@nextui-org/react'
+import { Navbar, Text, Button } from '@nextui-org/react'
 import { useRouter } from 'next/router'
 
 export const Navigation = () => {
@@ -7,19 +7,19 @@ export const Navigation = () => {
     <Navbar variant="sticky">
       <Navbar.Brand>
         <Text b color="inherit" hideIn="xs">
-          ACME
+          UpRunner Stats
         </Text>
       </Navbar.Brand>
       <Navbar.Content hideIn="xs" variant="highlight">
         <NavbarLink href="/">Dashboard</NavbarLink>
-        <NavbarLink href="/reports">Reports</NavbarLink>
+        <NavbarLink href="/transactions">Transactions</NavbarLink>
       </Navbar.Content>
       <Navbar.Content>
         <Navbar.Link color="inherit" href="#">
           Login
         </Navbar.Link>
         <Navbar.Item>
-          <Button auto flat as={Link} href="#">
+          <Button auto flat href="#">
             Sign Up
           </Button>
         </Navbar.Item>

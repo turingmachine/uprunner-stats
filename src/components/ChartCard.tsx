@@ -17,8 +17,7 @@ ChartJS.register(
   PointElement,
   LineElement,
   Title,
-  Tooltip,
-  Legend
+  Tooltip
 )
 
 type ChartCardProps = {
@@ -30,17 +29,11 @@ type ChartCardProps = {
 export const ChartCard = ({ title, labels, data }: ChartCardProps) => {
   const options = {
     responsive: true,
-    plugins: {
-      legend: {
-        position: 'top' as const,
-      },
-    },
   }
   const datasets = {
     labels,
     datasets: [
       {
-        label: 'CHF',
         data,
       },
     ],
@@ -48,8 +41,10 @@ export const ChartCard = ({ title, labels, data }: ChartCardProps) => {
 
   return (
     <Card>
-      <Card.Body>
+      <Card.Header>
         <Text h3>{title}</Text>
+      </Card.Header>
+      <Card.Body>
         <Line data={datasets} options={options} />
       </Card.Body>
     </Card>

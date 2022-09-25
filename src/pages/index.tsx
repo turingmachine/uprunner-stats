@@ -23,6 +23,12 @@ const Dashboard: NextPage = () => {
         labels={transactions.map((trx) => trx.time)}
         data={transactions.map((trx) => trx.amount_chf)}
       />
+      <Spacer y={1} />
+      <ChartCard
+        title="Relays"
+        labels={transactions.map((trx) => trx.time)}
+        data={transactions.map((trx) => trx.num_relays)}
+      />
     </>
   )
 }
