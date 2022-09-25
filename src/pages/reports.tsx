@@ -15,7 +15,6 @@ const Reports: NextPage = () => {
     (total, trx) => trx.amount_chf ?? 0 + total,
     0
   )
-  console.log(transactions.map((x) => x.amount_chf))
   return (
     <>
       <Text>Total: POKT {totalPOKT}</Text>

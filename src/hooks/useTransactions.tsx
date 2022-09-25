@@ -28,7 +28,9 @@ export const useTransactions = (address: string): Transactions => {
     return []
   }
 
-  const transactions: Transactions = responseData.data.flatMap(
+  const reversed = responseData.data.reverse()
+
+  const transactions: Transactions = reversed.flatMap(
     (month: any) => month.transactions
   )
 

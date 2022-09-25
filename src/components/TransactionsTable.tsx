@@ -8,6 +8,7 @@ type TransactionsTableProps = {
 export const TransactionsTable = ({ transactions }: TransactionsTableProps) => {
   return (
     <Table
+      aria-label="Table of Transactions"
       css={{
         height: 'auto',
         minWidth: '100%',

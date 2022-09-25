@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 export const Navigation = () => {
   return (
-    <Navbar>
+    <Navbar variant="sticky">
       <Navbar.Brand>
         <Text b color="inherit" hideIn="xs">
           ACME

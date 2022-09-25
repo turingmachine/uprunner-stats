@@ -40,14 +40,14 @@ export const ChartCard = ({ title, labels, data }: ChartCardProps) => {
     labels,
     datasets: [
       {
-        label: 'transactions',
+        label: 'CHF',
         data,
       },
     ],
   }
 
   return (
-    <Card css={{ mw: '400px' }}>
+    <Card>
       <Card.Body>
         <Text h3>{title}</Text>
         <Line data={datasets} options={options} />

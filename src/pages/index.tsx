@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import { Text, Spacer } from '@nextui-org/react'
 import { ChartCard } from '../components/ChartCard'
 import { useTransactions } from '../hooks/useTransactions'
+import Head from 'next/head'
 
 const Dashboard: NextPage = () => {
   const transactions = useTransactions(
@@ -9,6 +10,9 @@ const Dashboard: NextPage = () => {
   )
   return (
     <>
+      <Head>
+        <title>Dashboard UpRunnerStats</title>
+      </Head>
       <Text h2 css={{ marginBottom: 0 }}>
         Welcome back, UpRunner
       </Text>

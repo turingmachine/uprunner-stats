@@ -14,7 +14,6 @@ class UprDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <title>UpRunnerStats</title>
           <link rel="icon" href="/favicon.ico" />
           {CssBaseline.flush()}
         </Head>

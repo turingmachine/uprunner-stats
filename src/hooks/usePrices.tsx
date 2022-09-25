@@ -5,7 +5,7 @@ type ResponseData = string[][]
 export type Prices = { [key: string]: number }
 
 export const usePrices = (): Prices => {
-  const [responseData, setResponseDbata] = useState<ResponseData | null>(null)
+  const [responseData, setResponseData] = useState<ResponseData | null>(null)
   useEffect(() => {
     fetch(getPricesUrl())
       .then((response) => response.text())
