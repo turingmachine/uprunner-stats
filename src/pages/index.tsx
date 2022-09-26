@@ -39,19 +39,19 @@ const Dashboard: NextPage = () => {
         <Grid xs>
           <Card css={{ padding: '$7 ' }}>
             <Text h5>Total Relays</Text>
-            <Text h3>CHF {totalCHF}</Text>
+            <Text h3>{totalRelays}</Text>
           </Card>
         </Grid>
         <Grid xs>
           <Card css={{ padding: '$7 ' }}>
-            <Text h5>Total Revenue</Text>
-            <Text h3>POKT {totalPOKT}</Text>
+            <Text h5>Total Revenue POKT</Text>
+            <Text h3>{totalPOKT}</Text>
           </Card>
         </Grid>
         <Grid xs>
           <Card css={{ padding: '$7 ' }}>
-            <Text h5>Total Revenue</Text>
-            <Text h3>CHF {totalCHF}</Text>
+            <Text h5>Total Revenue CHF</Text>
+            <Text h3>{totalCHF}</Text>
           </Card>
         </Grid>
       </Grid.Container>
