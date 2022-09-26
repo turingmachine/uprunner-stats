@@ -14,9 +14,10 @@ const Dashboard: NextPage = () => {
     'bd5bee756231f202987ea85fb0a314294bed45be',
     '95f5f52580984ef652b530675ae3e66100a272e6',
   ])
-  const totalRelays = transactions
-    .reduce((total, trx) => trx.num_relays + total, 0)
-    .toFixed(2)
+  const totalRelays = transactions.reduce(
+    (total, trx) => trx.num_relays + total,
+    0
+  )
   const totalPOKT = transactions
     .reduce((total, trx) => trx.amount_pokt + total, 0)
     .toFixed(2)
