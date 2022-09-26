@@ -22,7 +22,7 @@ ChartJS.register(
   Tooltip
 )
 
-type Scales = 'day' | 'week' | 'month' | 'year'
+type Scales = 'hour' | 'day' | 'week' | 'month'
 type ChartCardData = { x: string; y: number }[]
 type ChartCardProps = {
   title: string
@@ -35,33 +35,44 @@ export const ChartCard = ({ title, data }: ChartCardProps) => {
     <Card>
       <Card.Header css={{ flex: 1, justifyContent: 'space-between' }}>
         <Text h3>{title}</Text>
-        <Button.Group>
+        <Button.Group size="sm" color="secondary">
+          <ScaleButton scale={'hour'} currentScale={scale} setScale={setScale}>
+            Hour
+          </ScaleButton>
           <ScaleButton scale={'day'} currentScale={scale} setScale={setScale}>
             Days
           </ScaleButton>
-          {/*
           <ScaleButton scale={'week'} currentScale={scale} setScale={setScale}>
             Weeks
           </ScaleButton>
-          */}
           <ScaleButton scale={'month'} currentScale={scale} setScale={setScale}>
             Months
-          </ScaleButton>
-          <ScaleButton scale={'year'} currentScale={scale} setScale={setScale}>
-            Years
           </ScaleButton>
         </Button.Group>
       </Card.Header>
       <Card.Body>
         <Line
           data={{
-            datasets: [{ data: aggregateDataForScale(data, scale) }],
+            datasets: [
+              {
+                data: aggregateDataForScale(data, scale),
+                borderColor: '#7828c8',
+                backgroundColor: '#7828c8',
+                fill: 'origin',
+              },
+            ],
           }}
           options={{
             responsive: true,
-            aspectRatio: 4,
+            aspectRatio: 6,
+            elements: {
+              line: {
+                tension: 0.4,
+              },
+            },
             scales: {
               x: {
+                grid: { display: false },
                 stacked: true,
                 type: 'time',
                 time: {
@@ -92,7 +103,7 @@ const ScaleButton = ({
 }: ScaleButtonProps) => {
   const onClick = () => setScale(scale)
   return (
-    <Button flat disabled={scale === currentScale} onClick={onClick}>
+    <Button disabled={scale === currentScale} onClick={onClick}>
       {children}
     </Button>
   )
@@ -115,9 +126,12 @@ const aggregateDataForScale = (data: ChartCardData, scale: Scales) => {
 }
 
 const getScaleFormat = (scale: Scales) => {
-  return { day: 'dd-MM-yyyy', week: 'ww-yyyy', month: 'MM-yyyy', year: 'yyyy' }[
-    scale
-  ]
+  return {
+    hour: 'HH-dd-MM-yyyy',
+    day: 'dd-MM-yyyy',
+    week: 'ww-yyyy',
+    month: 'MM-yyyy',
+  }[scale]
 }
 
 export default ChartCard

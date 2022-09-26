@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { Text, Spacer } from '@nextui-org/react'
+import { Text, Spacer, Card, Grid } from '@nextui-org/react'
 import { ChartCard } from '../components/ChartCard'
 import {
   prepareTransactionChartData,
@@ -14,24 +14,64 @@ const Dashboard: NextPage = () => {
     'bd5bee756231f202987ea85fb0a314294bed45be',
     '95f5f52580984ef652b530675ae3e66100a272e6',
   ])
+  const totalRelays = transactions
+    .reduce((total, trx) => trx.num_relays + total, 0)
+    .toFixed(2)
+  const totalPOKT = transactions
+    .reduce((total, trx) => trx.amount_pokt + total, 0)
+    .toFixed(2)
+  const totalCHF = transactions
+    .reduce((total, trx) => trx.amount_chf + total, 0)
+    .toFixed(2)
   return (
     <>
       <Head>
         <title>Dashboard - UpRunner Stats</title>
       </Head>
+
       <Text h2 css={{ marginBottom: 0 }}>
         Welcome back, UpRunner
       </Text>
       <Text size="$xl">Our current relays and revenue summary</Text>
       <Spacer y={1} />
-      <ChartCard
-        title="Revenue"
-        data={prepareTransactionChartData(transactions, 'amount_chf')}
-      />
+
+      <Grid.Container gap={2} justify="space-between">
+        <Grid xs>
+          <Card css={{ padding: '$7 ' }}>
+            <Text h5>Total Relays</Text>
+            <Text h3>CHF {totalCHF}</Text>
+          </Card>
+        </Grid>
+        <Grid xs>
+          <Card css={{ padding: '$7 ' }}>
+            <Text h5>Total Revenue</Text>
+            <Text h3>POKT {totalPOKT}</Text>
+          </Card>
+        </Grid>
+        <Grid xs>
+          <Card css={{ padding: '$7 ' }}>
+            <Text h5>Total Revenue</Text>
+            <Text h3>CHF {totalCHF}</Text>
+          </Card>
+        </Grid>
+      </Grid.Container>
       <Spacer y={1} />
+
       <ChartCard
         title="Relays"
         data={prepareTransactionChartData(transactions, 'num_relays')}
+      />
+      <Spacer y={1} />
+
+      <ChartCard
+        title="Revenue POKT"
+        data={prepareTransactionChartData(transactions, 'amount_pokt')}
+      />
+      <Spacer y={1} />
+
+      <ChartCard
+        title="Revenue CHF"
+        data={prepareTransactionChartData(transactions, 'amount_chf')}
       />
     </>
   )

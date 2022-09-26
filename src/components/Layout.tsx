@@ -10,8 +10,9 @@ export const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Navigation />
-      <Spacer y={1} />
-      <div style={{ maxWidth: '1352px', margin: '0 auto' }}>{children}</div>
+      <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+        <div style={{ margin: '24px' }}>{children}</div>
+      </div>
     </>
   )
 }

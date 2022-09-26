@@ -1,27 +1,46 @@
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 import { Navbar, Text, Button } from '@nextui-org/react'
 import { useRouter } from 'next/router'
+import { AddressesModal } from './AddressesModal'
 
 export const Navigation = () => {
+  const [addressesModalVisible, setAddressesModalVisible] = useState(false)
+  const addressesModalOpenHandler = () => {
+    setAddressesModalVisible(true)
+  }
+  const addressesModalCloseHandler = () => {
+    setAddressesModalVisible(false)
+  }
   return (
-    <Navbar variant="sticky">
-      <Navbar.Brand>
-        <Text b color="inherit" hideIn="xs">
-          UpRunner Stats
-        </Text>
-      </Navbar.Brand>
-      <Navbar.Content hideIn="xs" variant="highlight">
-        <NavbarLink href="/">Dashboard</NavbarLink>
-        <NavbarLink href="/transactions">Transactions</NavbarLink>
-      </Navbar.Content>
-      <Navbar.Content>
-        <Navbar.Item>
-          <Button auto flat href="#">
-            Addresses
-          </Button>
-        </Navbar.Item>
-      </Navbar.Content>
-    </Navbar>
+    <>
+      <AddressesModal
+        visible={addressesModalVisible}
+        closeHandler={addressesModalCloseHandler}
+      />
+      <Navbar variant="sticky">
+        <Navbar.Brand>
+          <Text b color="inherit" hideIn="xs">
+            UpRunner Stats
+          </Text>
+        </Navbar.Brand>
+        <Navbar.Content hideIn="xs" variant="highlight">
+          <NavbarLink href="/">Dashboard</NavbarLink>
+          <NavbarLink href="/transactions">Transactions</NavbarLink>
+        </Navbar.Content>
+        <Navbar.Content>
+          <Navbar.Item>
+            <Button
+              color="gradient"
+              shadow
+              auto
+              onClick={addressesModalOpenHandler}
+            >
+              Addresses
+            </Button>
+          </Navbar.Item>
+        </Navbar.Content>
+      </Navbar>
+    </>
   )
 }
 

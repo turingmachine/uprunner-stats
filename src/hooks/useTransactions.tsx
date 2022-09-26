@@ -2,9 +2,6 @@ import { useState, useEffect } from 'react'
 import { format, parseISO } from 'date-fns'
 import { usePrices, Prices } from './usePrices'
 
-type ReponseData = {
-  data: { month: { transactions: [] } }[]
-}
 export type Transaction = {
   hash: string
   time: string
@@ -38,8 +35,8 @@ const fetchTransactions = async (
   addresses: string[]
 ): Promise<Transactions> => {
   const transactionsPerAddress = await Promise.all(
-    addresses.map((addresses) =>
-      fetch(getTransactionsUrl(addresses))
+    addresses.map((address) =>
+      fetch(`https://api.pokt.tools/node/${address}/rewards`)
         .then((response) => response.json())
         .then((json) => {
           return json.data.flatMap((month: any) => month.transactions)
@@ -47,10 +44,6 @@ const fetchTransactions = async (
     )
   )
   return transactionsPerAddress.flat()
-}
-
-const getTransactionsUrl = (address: string) => {
-  return `https://api.pokt.tools/node/${address}/rewards`
 }
 
 const addPriceToTransactions = (
@@ -73,7 +66,7 @@ const addPriceToTransactions = (
 
 export const prepareTransactionChartData = (
   transactions: Transactions,
-  property: 'num_relays' | 'amount_chf'
+  property: 'num_relays' | 'amount_pokt' | 'amount_chf'
 ) => {
   return transactions.map((transaction) => {
     return {

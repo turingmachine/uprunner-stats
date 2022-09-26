@@ -7,7 +7,7 @@ type TransactionsTableProps = {
 
 export const TransactionsTable = ({ transactions }: TransactionsTableProps) => {
   return (
-    <Table aria-label="Table of Transactions">
+    <Table aria-label="Table of Transactions" css={{ zIndex: 1 }}>
       <Table.Header>
         <Table.Column>Date</Table.Column>
         <Table.Column>Chain</Table.Column>

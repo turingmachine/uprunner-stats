@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import { TransactionsTable } from '../components/TransactionsTable'
 import { useTransactions } from '../hooks/useTransactions'
-import { Text } from '@nextui-org/react'
 import Head from 'next/head'
 
 const Transactions: NextPage = () => {
@@ -11,19 +10,11 @@ const Transactions: NextPage = () => {
     'bd5bee756231f202987ea85fb0a314294bed45be',
     '95f5f52580984ef652b530675ae3e66100a272e6',
   ])
-  const totalPOKT = transactions
-    .reduce((total, trx) => trx.amount_pokt + total, 0)
-    .toFixed(2)
-  const totalCHF = transactions
-    .reduce((total, trx) => trx.amount_chf + total, 0)
-    .toFixed(2)
   return (
     <>
       <Head>
         <title>Transactions - UpRunner Stats</title>
       </Head>
-      <Text>Total: POKT {totalPOKT}</Text>
-      <Text>Total: CHF {totalCHF}</Text>
       <TransactionsTable transactions={transactions} />
     </>
   )
