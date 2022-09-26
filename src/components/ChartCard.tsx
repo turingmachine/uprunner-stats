@@ -50,7 +50,14 @@ export const ChartCard = ({ title, data }: ChartCardProps) => {
           </ScaleButton>
         </Button.Group>
       </Card.Header>
-      <Card.Body>
+      <Card.Body
+        css={{
+          padding: '0 $5 $5 $7',
+          flex: 1,
+          flexDirection: 'row',
+          overflow: 'visible',
+        }}
+      >
         <Line
           data={{
             datasets: [
@@ -58,11 +65,13 @@ export const ChartCard = ({ title, data }: ChartCardProps) => {
                 data: aggregateDataForScale(data, scale),
                 borderColor: '#7828c8',
                 backgroundColor: '#7828c8',
-                fill: 'origin',
               },
             ],
           }}
           options={{
+            layout: {
+              autoPadding: false,
+            },
             responsive: true,
             aspectRatio: 6,
             elements: {
@@ -78,6 +87,12 @@ export const ChartCard = ({ title, data }: ChartCardProps) => {
                 time: {
                   unit: scale,
                   round: scale,
+                  displayFormats: {
+                    hour: 'HH:mm  ',
+                    day: 'dd.MM',
+                    week: 'ww',
+                    month: 'MMM',
+                  },
                 },
               },
             },

@@ -29,51 +29,50 @@ const Dashboard: NextPage = () => {
       <Head>
         <title>Dashboard - UpRunner Stats</title>
       </Head>
-
-      <Text h2 css={{ marginBottom: 0 }}>
-        Welcome back, UpRunner
-      </Text>
-      <Text size="$xl">Our current relays and revenue summary</Text>
-      <Spacer y={1} />
-
       <Grid.Container gap={2} justify="space-between">
-        <Grid xs>
+        <Grid xs={12} css={{ flexDirection: 'column' }}>
+          <Text h2 css={{ marginBottom: 0 }}>
+            Welcome back, UpRunner
+          </Text>
+          <Text size="$xl">Our current relays and revenue summary</Text>
+        </Grid>
+        <Grid xs={4}>
           <Card css={{ padding: '$7 ' }}>
             <Text h5>Total Relays</Text>
             <Text h3>{totalRelays}</Text>
           </Card>
         </Grid>
-        <Grid xs>
+        <Grid xs={4}>
           <Card css={{ padding: '$7 ' }}>
             <Text h5>Total Revenue POKT</Text>
             <Text h3>{totalPOKT}</Text>
           </Card>
         </Grid>
-        <Grid xs>
+        <Grid xs={4}>
           <Card css={{ padding: '$7 ' }}>
             <Text h5>Total Revenue CHF</Text>
             <Text h3>{totalCHF}</Text>
           </Card>
         </Grid>
+        <Grid xs={12}>
+          <ChartCard
+            title="Relays"
+            data={prepareTransactionChartData(transactions, 'num_relays')}
+          />
+        </Grid>
+        <Grid xs={12}>
+          <ChartCard
+            title="Revenue POKT"
+            data={prepareTransactionChartData(transactions, 'amount_pokt')}
+          />
+        </Grid>
+        <Grid xs={12}>
+          <ChartCard
+            title="Revenue CHF"
+            data={prepareTransactionChartData(transactions, 'amount_chf')}
+          />
+        </Grid>
       </Grid.Container>
-      <Spacer y={1} />
-
-      <ChartCard
-        title="Relays"
-        data={prepareTransactionChartData(transactions, 'num_relays')}
-      />
-      <Spacer y={1} />
-
-      <ChartCard
-        title="Revenue POKT"
-        data={prepareTransactionChartData(transactions, 'amount_pokt')}
-      />
-      <Spacer y={1} />
-
-      <ChartCard
-        title="Revenue CHF"
-        data={prepareTransactionChartData(transactions, 'amount_chf')}
-      />
     </>
   )
 }

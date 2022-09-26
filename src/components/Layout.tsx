@@ -11,7 +11,7 @@ export const Layout = ({ children }: LayoutProps) => {
     <>
       <Navigation />
       <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-        <div style={{ margin: '24px' }}>{children}</div>
+        <div style={{ margin: '12px' }}>{children}</div>
       </div>
     </>
   )
