@@ -1,4 +1,3 @@
-import { useState, ReactNode } from 'react'
 import { Card, Text, Button } from '@nextui-org/react'
 import { Line } from 'react-chartjs-2'
 import {
@@ -12,6 +11,7 @@ import {
 } from 'chart.js'
 import 'chartjs-adapter-date-fns'
 import { parse, parseISO, format } from 'date-fns'
+import { useState, ReactNode } from 'react'
 
 ChartJS.register(
   CategoryScale,
@@ -32,7 +32,7 @@ type ChartCardProps = {
 type ScaleDatapoints = {
   [scale in Scales]: number
 }
-const SCALE_DATAPOINTS = {
+const SCALE_DATAPOINTS: ScaleDatapoints = {
   hour: 24,
   day: 30,
   week: 24,
@@ -146,7 +146,15 @@ const aggregateDataForScale = (data: ChartCardData, scale: Scales) => {
   return Object.entries(aggregatedData)
     .map((entry: [string, number]) => {
       return {
-        x: parse(entry[0], getScaleFormat(scale), new Date()),
+        x: parse(
+          entry[0],
+          scale === 'week' ? 'ww-YYYY' : getScaleFormat(scale),
+          new Date(),
+          {
+            weekStartsOn: 1,
+            useAdditionalWeekYearTokens: true,
+          }
+        ),
         y: entry[1],
       }
     })

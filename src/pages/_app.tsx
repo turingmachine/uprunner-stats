@@ -4,10 +4,17 @@ import { Layout } from '../components/Layout'
 import { useTransactions } from '../hooks/useTransactions'
 import { useAdresses } from '../hooks/useAdresses'
 
+import { parse } from 'date-fns'
+
 const UpRunnerStats = ({ Component, pageProps }: AppProps) => {
   const { addresses } = useAdresses()
   const transactions = useTransactions(addresses)
-  console.log(addresses)
+  console.log(
+    parse('2022-01', 'YYYY-ww', new Date(), {
+      weekStartsOn: 1,
+      useAdditionalWeekYearTokens: true,
+    })
+  )
   return (
     <NextUIProvider>
       <Layout>
