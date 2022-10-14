@@ -21,7 +21,7 @@ export const useTransactions = (addresses: string[]): Transactions => {
     fetchTransactions(addresses).then((transactions) =>
       setTransactions(transactions)
     )
-  }, [])
+  }, [addresses])
 
   if (!transactions) {
     return []

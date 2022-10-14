@@ -7,6 +7,7 @@ import { useAdresses } from '../hooks/useAdresses'
 const UpRunnerStats = ({ Component, pageProps }: AppProps) => {
   const { addresses } = useAdresses()
   const transactions = useTransactions(addresses)
+  console.log(addresses)
   return (
     <NextUIProvider>
       <Layout>

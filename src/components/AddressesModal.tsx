@@ -19,15 +19,16 @@ export const AddressesModal = ({
   }
 
   const handleSubmit = (event: FormEvent<HTMLButtonElement>) => {
-    setAddresses(textarea.split('\n'))
-    event.preventDefault()
+    setAddresses(textarea.split('\n').filter(Boolean))
     closeHandler()
   }
 
   return (
     <Modal
       closeButton
-      aria-labelledby="add-addresses"
+      aria-labelledby="modal-title"
+      aria-describedby="modal-description"
+      width="425px"
       open={visible}
       onClose={closeHandler}
     >
@@ -41,14 +42,17 @@ export const AddressesModal = ({
           bordered
           fullWidth
           color="primary"
-          size="lg"
-          placeholder="one address per line"
+          minRows={10}
+          maxRows={20}
           value={textarea}
           onChange={handleChange}
+          css={{ fontFamily: 'mono' }}
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
         />
       </Modal.Body>
       <Modal.Footer>
-        <Button auto onSubmit={handleSubmit}>
+        <Button auto onClick={handleSubmit}>
           Load
         </Button>
       </Modal.Footer>
