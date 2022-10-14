@@ -86,7 +86,7 @@ export const ChartCard = ({ title, data }: ChartCardProps) => {
             aspectRatio: 6,
             elements: {
               line: {
-                tension: 0.4,
+                tension: 0.5,
               },
             },
             scales: {

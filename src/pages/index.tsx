@@ -22,22 +22,34 @@ const DashboardPage: NextPage<{ transactions: Transactions }> = ({
           </Text>
           <Text size="$xl">Our current relays and revenue summary</Text>
         </Grid>
-        <Grid xs={4}>
+        <Grid xs={2}>
           <Card css={{ padding: '$7 ' }}>
             <Text h5>Total Relays</Text>
             <Text h3>{formatNumber(useSum(transactions, 'num_relays'))}</Text>
           </Card>
         </Grid>
-        <Grid xs={4}>
+        <Grid xs={2}>
+          <Card css={{ padding: '$7 ' }}>
+            <Text h5>Total Relays</Text>
+            <Text h3>{formatNumber(useSum(transactions, 'num_relays'))}</Text>
+          </Card>
+        </Grid>
+        <Grid xs={2}>
           <Card css={{ padding: '$7 ' }}>
             <Text h5>Total Revenue POKT</Text>
             <Text h3>{formatNumber(useSum(transactions, 'amount_pokt'))}</Text>
           </Card>
         </Grid>
-        <Grid xs={4}>
+        <Grid xs={2}>
           <Card css={{ padding: '$7 ' }}>
-            <Text h5>Total Revenue CHF</Text>
-            <Text h3>{formatNumber(useSum(transactions, 'amount_chf'))}</Text>
+            <Text h5>Total Stake</Text>
+            <Text h3>75'000 POKT</Text>
+          </Card>
+        </Grid>
+        <Grid xs={2}>
+          <Card css={{ padding: '$7 ' }}>
+            <Text h5>POKT Price</Text>
+            <Text h3>$0.0691</Text>
           </Card>
         </Grid>
         <Grid xs={12}>

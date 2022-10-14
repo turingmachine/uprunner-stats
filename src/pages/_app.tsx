@@ -9,12 +9,6 @@ import { parse } from 'date-fns'
 const UpRunnerStats = ({ Component, pageProps }: AppProps) => {
   const { addresses } = useAdresses()
   const transactions = useTransactions(addresses)
-  console.log(
-    parse('2022-01', 'YYYY-ww', new Date(), {
-      weekStartsOn: 1,
-      useAdditionalWeekYearTokens: true,
-    })
-  )
   return (
     <NextUIProvider>
       <Layout>
