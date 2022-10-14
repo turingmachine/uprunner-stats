@@ -29,8 +29,18 @@ type ChartCardProps = {
   data: ChartCardData
 }
 
+type ScaleDatapoints = {
+  [scale in Scales]: number
+}
+const SCALE_DATAPOINTS = {
+  hour: 24,
+  day: 30,
+  week: 24,
+  month: 24,
+}
+
 export const ChartCard = ({ title, data }: ChartCardProps) => {
-  const [scale, setScale] = useState<Scales>('month')
+  const [scale, setScale] = useState<Scales>('day')
   return (
     <Card>
       <Card.Header css={{ flex: 1, justifyContent: 'space-between' }}>
@@ -132,12 +142,15 @@ const aggregateDataForScale = (data: ChartCardData, scale: Scales) => {
       [date]: dataPoint.y + (acc[date] ?? 0),
     }
   }, {} as { [key: string]: number })
-  return Object.entries(aggregatedData).map((entry: [string, number]) => {
-    return {
-      x: parse(entry[0], getScaleFormat(scale), new Date()),
-      y: entry[1],
-    }
-  })
+
+  return Object.entries(aggregatedData)
+    .map((entry: [string, number]) => {
+      return {
+        x: parse(entry[0], getScaleFormat(scale), new Date()),
+        y: entry[1],
+      }
+    })
+    .slice(SCALE_DATAPOINTS['month'] * -1)
 }
 
 const getScaleFormat = (scale: Scales) => {
