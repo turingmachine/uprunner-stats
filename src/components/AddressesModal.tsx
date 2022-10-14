@@ -1,4 +1,6 @@
-import { Text, Button, Modal, Textarea } from '@nextui-org/react'
+import { Text, Button, Modal, Textarea, FormElement } from '@nextui-org/react'
+import { ChangeEvent, FormEvent, useState } from 'react'
+import { useAdresses } from '../hooks/useAdresses'
 
 type AddressesModalProps = {
   visible: boolean
@@ -9,6 +11,19 @@ export const AddressesModal = ({
   closeHandler,
   visible,
 }: AddressesModalProps) => {
+  const { addresses, setAddresses } = useAdresses()
+  const [textarea, setTextarea] = useState(addresses.join('\n'))
+
+  const handleChange = (event: ChangeEvent<FormElement>) => {
+    setTextarea(event.currentTarget.value)
+  }
+
+  const handleSubmit = (event: FormEvent<HTMLButtonElement>) => {
+    setAddresses(textarea.split('\n'))
+    event.preventDefault()
+    closeHandler()
+  }
+
   return (
     <Modal
       closeButton
@@ -28,10 +43,12 @@ export const AddressesModal = ({
           color="primary"
           size="lg"
           placeholder="one address per line"
+          value={textarea}
+          onChange={handleChange}
         />
       </Modal.Body>
       <Modal.Footer>
-        <Button auto onClick={closeHandler}>
+        <Button auto onSubmit={handleSubmit}>
           Load
         </Button>
       </Modal.Footer>

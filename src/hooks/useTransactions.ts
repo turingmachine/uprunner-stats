@@ -12,6 +12,7 @@ export type Transaction = {
   amount_chf: number
 }
 export type Transactions = Transaction[]
+export type TransactionProperties = 'num_relays' | 'amount_pokt' | 'amount_chf'
 
 export const useTransactions = (addresses: string[]): Transactions => {
   const prices = usePrices()
@@ -60,18 +61,6 @@ const addPriceToTransactions = (
       amount_pokt: transaction.pokt_per_relay * transaction.num_relays,
       amount_chf: transaction.pokt_per_relay * transaction.num_relays * price,
       price_pokt_per_chf: price,
-    }
-  })
-}
-
-export const prepareTransactionChartData = (
-  transactions: Transactions,
-  property: 'num_relays' | 'amount_pokt' | 'amount_chf'
-) => {
-  return transactions.map((transaction) => {
-    return {
-      x: transaction.time,
-      y: transaction[property],
     }
   })
 }

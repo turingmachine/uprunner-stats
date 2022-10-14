@@ -1,29 +1,15 @@
 import type { NextPage } from 'next'
-import { Text, Spacer, Card, Grid } from '@nextui-org/react'
+import { Text, Card, Grid } from '@nextui-org/react'
 import { ChartCard } from '../components/ChartCard'
-import {
-  prepareTransactionChartData,
-  useTransactions,
-} from '../hooks/useTransactions'
 import Head from 'next/head'
+import { useSum } from '../hooks/useSum'
+import { useChartData } from '../hooks/useChartData'
+import { formatNumber } from '../lib/formatNumber'
+import { Transactions } from '../hooks/useTransactions'
 
-const Dashboard: NextPage = () => {
-  const transactions = useTransactions([
-    '700af42a002af6f957d8025e9b80820589d84d36',
-    'a907bf088f63f94d5419f059ee078c33f983b8f7',
-    'bd5bee756231f202987ea85fb0a314294bed45be',
-    '95f5f52580984ef652b530675ae3e66100a272e6',
-  ])
-  const totalRelays = transactions.reduce(
-    (total, trx) => trx.num_relays + total,
-    0
-  )
-  const totalPOKT = transactions
-    .reduce((total, trx) => trx.amount_pokt + total, 0)
-    .toFixed(2)
-  const totalCHF = transactions
-    .reduce((total, trx) => trx.amount_chf + total, 0)
-    .toFixed(2)
+const DashboardPage: NextPage<{ transactions: Transactions }> = ({
+  transactions,
+}) => {
   return (
     <>
       <Head>
@@ -39,37 +25,37 @@ const Dashboard: NextPage = () => {
         <Grid xs={4}>
           <Card css={{ padding: '$7 ' }}>
             <Text h5>Total Relays</Text>
-            <Text h3>{totalRelays}</Text>
+            <Text h3>{formatNumber(useSum(transactions, 'num_relays'))}</Text>
           </Card>
         </Grid>
         <Grid xs={4}>
           <Card css={{ padding: '$7 ' }}>
             <Text h5>Total Revenue POKT</Text>
-            <Text h3>{totalPOKT}</Text>
+            <Text h3>{formatNumber(useSum(transactions, 'amount_pokt'))}</Text>
           </Card>
         </Grid>
         <Grid xs={4}>
           <Card css={{ padding: '$7 ' }}>
             <Text h5>Total Revenue CHF</Text>
-            <Text h3>{totalCHF}</Text>
+            <Text h3>{formatNumber(useSum(transactions, 'amount_chf'))}</Text>
           </Card>
         </Grid>
         <Grid xs={12}>
           <ChartCard
             title="Relays"
-            data={prepareTransactionChartData(transactions, 'num_relays')}
+            data={useChartData(transactions, 'num_relays')}
           />
         </Grid>
         <Grid xs={12}>
           <ChartCard
             title="Revenue POKT"
-            data={prepareTransactionChartData(transactions, 'amount_pokt')}
+            data={useChartData(transactions, 'amount_pokt')}
           />
         </Grid>
         <Grid xs={12}>
           <ChartCard
             title="Revenue CHF"
-            data={prepareTransactionChartData(transactions, 'amount_chf')}
+            data={useChartData(transactions, 'amount_chf')}
           />
         </Grid>
       </Grid.Container>
@@ -77,4 +63,4 @@ const Dashboard: NextPage = () => {
   )
 }
 
-export default Dashboard
+export default DashboardPage

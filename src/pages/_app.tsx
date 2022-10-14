@@ -1,12 +1,16 @@
 import type { AppProps } from 'next/app'
 import { NextUIProvider } from '@nextui-org/react'
 import { Layout } from '../components/Layout'
+import { useTransactions } from '../hooks/useTransactions'
+import { useAdresses } from '../hooks/useAdresses'
 
 const UpRunnerStats = ({ Component, pageProps }: AppProps) => {
+  const { addresses } = useAdresses()
+  const transactions = useTransactions(addresses)
   return (
     <NextUIProvider>
       <Layout>
-        <Component {...pageProps} />
+        <Component {...pageProps} transactions={transactions} />
       </Layout>
     </NextUIProvider>
   )
