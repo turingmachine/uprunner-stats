@@ -16,12 +16,6 @@ const DashboardPage: NextPage<{ transactions: Transactions }> = ({
         <title>Dashboard - UpRunner Stats</title>
       </Head>
       <Grid.Container gap={2} justify="space-between">
-        <Grid xs={12} css={{ flexDirection: 'column' }}>
-          <Text h2 css={{ marginBottom: 0 }}>
-            Welcome back, UpRunner
-          </Text>
-          <Text size="$xl">Our current relays and revenue summary</Text>
-        </Grid>
         <Grid xs={2}>
           <Card css={{ padding: '$7 ' }}>
             <Text h5>Total Relays</Text>
