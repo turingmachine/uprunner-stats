@@ -30,20 +30,20 @@ const DashboardPage: NextPage<{ transactions: Transactions }> = ({
         </Grid>
         <Grid xs={2}>
           <Card css={{ padding: '$7 ' }}>
-            <Text h5>Total Relays</Text>
-            <Text h3>{formatNumber(useSum(transactions, 'num_relays'))}</Text>
-          </Card>
-        </Grid>
-        <Grid xs={2}>
-          <Card css={{ padding: '$7 ' }}>
             <Text h5>Total Revenue POKT</Text>
             <Text h3>{formatNumber(useSum(transactions, 'amount_pokt'))}</Text>
           </Card>
         </Grid>
         <Grid xs={2}>
           <Card css={{ padding: '$7 ' }}>
-            <Text h5>Total Stake</Text>
-            <Text h3>75'000 POKT</Text>
+            <Text h5>Total Revenue CHF</Text>
+            <Text h3>{formatNumber(useSum(transactions, 'amount_chf'))}</Text>
+          </Card>
+        </Grid>
+        <Grid xs={2}>
+          <Card css={{ padding: '$7 ' }}>
+            <Text h5>Total Stake POKT</Text>
+            <Text h3>{"75'000 POKT"}</Text>
           </Card>
         </Grid>
         <Grid xs={2}>
