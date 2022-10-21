@@ -13,7 +13,11 @@ const UpRunnerStats = ({ Component, pageProps }: AppProps) => {
     <SWRConfig value={{ fetcher }}>
       <NextUIProvider>
         <Layout>
-          <Component {...pageProps} transactions={transactions} />
+          <Component
+            {...pageProps}
+            transactions={transactions}
+            addresses={addresses}
+          />
         </Layout>
       </NextUIProvider>
     </SWRConfig>

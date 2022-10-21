@@ -6,11 +6,20 @@ import { useSum } from '../hooks/useSum'
 import { useChartData } from '../hooks/useChartData'
 import { formatNumber } from '../lib/formatNumber'
 import { Transactions } from '../hooks/useTransactions'
-import { useLivePrice } from '../hooks/useCurrentPrice'
+import { useNodeStatus } from '../hooks/useNodeStatus'
+import { usePoktPrice } from '../hooks/usePoktPrice'
 
-const DashboardPage: NextPage<{ transactions: Transactions }> = ({
-  transactions,
-}) => {
+const DashboardPage: NextPage<{
+  transactions: Transactions
+  addresses: string[]
+}> = ({ transactions, addresses }) => {
+  const poktPrice = usePoktPrice()
+  const nodeStatus = useNodeStatus(addresses)
+  const totalStake =
+    nodeStatus.reduce(
+      (totalStake, nodeStatus) => totalStake + parseInt(nodeStatus.tokens),
+      0
+    ) / 1000000
   return (
     <>
       <Head>
@@ -37,14 +46,14 @@ const DashboardPage: NextPage<{ transactions: Transactions }> = ({
         <Grid xs={3}>
           <Card css={{ padding: '$7 ' }}>
             <Text h5>Total Stake</Text>
-            <Text h3>{"75'000 POKT"}</Text>
-            <Text h4>{"75'000 USD"}</Text>
+            <Text h3>{formatNumber(totalStake)} POKT</Text>
+            <Text h4>{formatNumber(totalStake * poktPrice)} CHF</Text>
           </Card>
         </Grid>
         <Grid xs={3}>
           <Card css={{ padding: '$7 ' }}>
             <Text h5>POKT Price</Text>
-            <Text h3>{useLivePrice()} USD</Text>
+            <Text h3>{formatNumber(poktPrice, 4)} CHF</Text>
           </Card>
         </Grid>
         <Grid xs={12}>
