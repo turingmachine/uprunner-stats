@@ -6,6 +6,7 @@ import { useSum } from '../hooks/useSum'
 import { useChartData } from '../hooks/useChartData'
 import { formatNumber } from '../lib/formatNumber'
 import { Transactions } from '../hooks/useTransactions'
+import { useLivePrice } from '../hooks/useCurrentPrice'
 
 const DashboardPage: NextPage<{ transactions: Transactions }> = ({
   transactions,
@@ -16,34 +17,34 @@ const DashboardPage: NextPage<{ transactions: Transactions }> = ({
         <title>Dashboard - UpRunner Stats</title>
       </Head>
       <Grid.Container gap={2} justify="space-between">
-        <Grid xs={2}>
+        <Grid xs={3}>
           <Card css={{ padding: '$7 ' }}>
             <Text h5>Total Relays</Text>
             <Text h3>{formatNumber(useSum(transactions, 'num_relays'))}</Text>
           </Card>
         </Grid>
-        <Grid xs={2}>
+        <Grid xs={3}>
           <Card css={{ padding: '$7 ' }}>
-            <Text h5>Total Revenue POKT</Text>
-            <Text h3>{formatNumber(useSum(transactions, 'amount_pokt'))}</Text>
+            <Text h5>Total Revenue</Text>
+            <Text h3>
+              {formatNumber(useSum(transactions, 'amount_pokt'))} POKT
+            </Text>
+            <Text h4>
+              {formatNumber(useSum(transactions, 'amount_chf'))} CHF
+            </Text>
           </Card>
         </Grid>
-        <Grid xs={2}>
+        <Grid xs={3}>
           <Card css={{ padding: '$7 ' }}>
-            <Text h5>Total Revenue CHF</Text>
-            <Text h3>{formatNumber(useSum(transactions, 'amount_chf'))}</Text>
-          </Card>
-        </Grid>
-        <Grid xs={2}>
-          <Card css={{ padding: '$7 ' }}>
-            <Text h5>Total Stake POKT</Text>
+            <Text h5>Total Stake</Text>
             <Text h3>{"75'000 POKT"}</Text>
+            <Text h4>{"75'000 USD"}</Text>
           </Card>
         </Grid>
-        <Grid xs={2}>
+        <Grid xs={3}>
           <Card css={{ padding: '$7 ' }}>
             <Text h5>POKT Price</Text>
-            <Text h3>$0.0691</Text>
+            <Text h3>{useLivePrice()} USD</Text>
           </Card>
         </Grid>
         <Grid xs={12}>
